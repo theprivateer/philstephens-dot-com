@@ -44,7 +44,7 @@ class PostResource extends Resource
                     ->date()
                     ->sortable(),
             ])
-            ->defaultSort('published_at', 'desc')
+            ->defaultSort(fn ($query) => $query->orderByRaw('-published_at asc'))
             ->filters([
                 //
             ])
