@@ -33,6 +33,7 @@ class AlbumResource extends Resource
                     ->image()
                     ->maxFiles(1)
                     ->directory('images/365albums')
+                    ->preserveFilenames()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('released')
                     ->maxLength(255),

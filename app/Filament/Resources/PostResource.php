@@ -27,7 +27,7 @@ class PostResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('body')
-                    ->fileAttachmentsDirectory('images')
+                    ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('published_at')
                     ->native(false),
