@@ -54,6 +54,8 @@ class AlbumResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('artist')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->postStatus(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->date()
                     ->sortable(),

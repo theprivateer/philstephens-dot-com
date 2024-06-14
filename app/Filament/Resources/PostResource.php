@@ -40,6 +40,8 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->postStatus(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->date()
                     ->sortable(),

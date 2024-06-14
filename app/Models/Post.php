@@ -7,13 +7,13 @@ use Spatie\Feed\FeedItem;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model implements Feedable
 {
     use HasFactory;
     use HasSlug;
+    use Publishable;
 
     protected $guarded = [];
 
@@ -27,14 +27,6 @@ class Post extends Model implements Feedable
         return [
             'published_at' => 'datetime',
         ];
-    }
-
-    public function scopePublished(Builder $query): void
-    {
-        $query->where(function ($query) {
-            $query->whereNotNull('published_at')
-                ->where('published_at', '<=', now());
-        })->orderBy('published_at', 'desc');
     }
 
     /**

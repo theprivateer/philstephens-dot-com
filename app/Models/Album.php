@@ -7,22 +7,26 @@ use Spatie\Feed\FeedItem;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Album extends Model implements Feedable
 {
     use HasFactory;
     use HasSlug;
+    use Publishable;
 
     protected $guarded = [];
 
-    public function scopePublished(Builder $query): void
+      /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        $query->where(function ($query) {
-            $query->whereNotNull('published_at')
-                ->where('published_at', '<=', now());
-        })->orderBy('published_at', 'desc');
+        return [
+            'published_at' => 'datetime',
+        ];
     }
 
     /**
