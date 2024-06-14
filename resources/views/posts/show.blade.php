@@ -19,7 +19,7 @@
     @endif
 
     <p>
-        <a href="mailto:phils@hey.com?subject={{ $post->title }}">Reply via email</a>
+        <a href="mailto:hello@philstephens.com?subject={{ $post->title }}">Reply via email</a>
     </p>
 </article>
 

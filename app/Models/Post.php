@@ -49,7 +49,7 @@ class Post extends Model implements Feedable
             ->updated($this->updated_at)
             ->link(route('post.show', $this->slug))
             ->authorName('Phil Stephens')
-            ->authorEmail('phils@hey.com');
+            ->authorEmail('hello@philstephens.com');
     }
 
     public static function getFeedItems()

@@ -15,7 +15,7 @@
     <p><em>This is an entry in the <a href="/albums">365 Albums Project</a> in which I plan on posting one album I enjoy every day for a full year.</em></p>
 
     <p>
-        <a href="mailto:phils@hey.com?subject={{ $album->title }}">Reply via email</a>
+        <a href="mailto:hello@philstephens.com?subject={{ $album->title }}">Reply via email</a>
     </p>
 </article>
 

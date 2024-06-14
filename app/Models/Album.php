@@ -52,7 +52,7 @@ class Album extends Model implements Feedable
             ->updated($this->updated_at)
             ->link(route('album.show', $this->slug))
             ->authorName('Phil Stephens')
-            ->authorEmail('phils@hey.com');
+            ->authorEmail('hello@philstephens.com');
     }
 
     public static function getFeedItems()
