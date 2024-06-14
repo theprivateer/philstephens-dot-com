@@ -13,6 +13,9 @@ class EditPost extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('preview')
+                ->url(route('post.show', $this->getRecord()->slug))
+                ->openUrlInNewTab(true),
             Actions\DeleteAction::make(),
         ];
     }

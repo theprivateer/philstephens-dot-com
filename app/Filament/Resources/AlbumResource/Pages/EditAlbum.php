@@ -13,6 +13,9 @@ class EditAlbum extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('preview')
+                ->url(route('album.show', $this->getRecord()->slug))
+                ->openUrlInNewTab(true),
             Actions\DeleteAction::make(),
         ];
     }
