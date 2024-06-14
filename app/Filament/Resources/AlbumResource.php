@@ -39,7 +39,7 @@ class AlbumResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('listen_link')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('body')
+                Forms\Components\Textarea::make('content')
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('published_at')
                     ->native(false),

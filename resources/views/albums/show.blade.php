@@ -10,7 +10,7 @@
         <p><a href="{{ $album->listen_link }}">Listen Here</a></p>
     </section>
 
-    {{ $album->body }}
+    {!! str($album->content)->markdown() !!}
 
     <p><em>This is an entry in the <a href="/albums">365 Albums Project</a> in which I plan on posting one album I enjoy every day for a full year.</em></p>
 

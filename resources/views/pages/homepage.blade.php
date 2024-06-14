@@ -2,7 +2,7 @@
 
 @section('content')
 <article class="page-content">
-    {!! str(optional($page)->body)->markdown() !!}
+    {!! str(optional($page)->content)->markdown() !!}
 </article>
 <h2>Recent Blog Articles</h2>
 

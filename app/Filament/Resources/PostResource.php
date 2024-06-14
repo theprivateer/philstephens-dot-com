@@ -26,7 +26,7 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\MarkdownEditor::make('body')
+                Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('published_at')

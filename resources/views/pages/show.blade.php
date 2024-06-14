@@ -3,6 +3,6 @@
 @section('content')
 <article class="page-content">
     <h1>{{ $page->title }}</h1>
-    {!! str($page->body)->markdown() !!}
+    {!! str($page->content)->markdown() !!}
 </article>
 @endsection

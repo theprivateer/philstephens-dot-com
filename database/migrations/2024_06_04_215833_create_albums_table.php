@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('album_artwork')->nullable();
             $table->string('released')->nullable();
             $table->string('listen_link')->nullable();
-            $table->longText('body')->nullable();
+            $table->longText('content')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

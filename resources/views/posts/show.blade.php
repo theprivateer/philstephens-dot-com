@@ -12,7 +12,7 @@
         @endif
     </h1>
 
-    {!! str($post->body)->markdown() !!}
+    {!! str($post->content)->markdown() !!}
 
     @if($post->link && $post->source)
         <p><em>Via <a href="{{ $post->link }}">{{ $post->source }}</a></em></p>
