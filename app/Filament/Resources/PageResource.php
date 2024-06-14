@@ -27,7 +27,7 @@ class PageResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('content')
-                    ->fileAttachmentsDirectory('images')
+                    ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
             ]);
     }
