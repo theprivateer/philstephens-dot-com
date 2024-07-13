@@ -45,7 +45,7 @@ class Post extends Model implements Feedable
         return FeedItem::create()
             ->id($this->id)
             ->title($this->title)
-            ->summary($this->body)
+            ->summary($this->body ?? '')
             ->updated($this->updated_at)
             ->link(route('post.show', $this->slug))
             ->authorName('Phil Stephens')
