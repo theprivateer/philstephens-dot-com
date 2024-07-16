@@ -4,7 +4,7 @@
 <article class="page-content">
     <h1>{{ optional($page)->title }}</h1>
 
-    {!! str(optional($page)->body)->markdown() !!}
+    {!! str(optional($page)->content)->markdown() !!}
 </article>
 
 <nav class="article-list">
