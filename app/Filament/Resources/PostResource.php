@@ -27,7 +27,6 @@ class PostResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle')
-                    ->required()
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/' . date('Ymd'))
