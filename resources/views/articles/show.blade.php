@@ -3,12 +3,20 @@
 @section('content')
 <article class="page-content">
     <h1>
+        @if($post->link && $post->source)
+            <a href="{{ $post->link }}">
+        @endif
         {{ $post->title }}
+        @if($post->link && $post->source)
+            </a>
+        @endif
     </h1>
 
-    <p><em>Updated {{ $post->updated_at->format('F j, Y') }}</em></p>
-
     {!! str($post->content)->markdown() !!}
+
+    @if($post->link && $post->source)
+        <p><em>Via <a href="{{ $post->link }}">{{ $post->source }}</a></em></p>
+    @endif
 
     <p>
         <a href="mailto:hello@philstephens.com?subject={{ $post->title }}">Reply via email</a>

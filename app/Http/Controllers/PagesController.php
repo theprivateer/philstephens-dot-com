@@ -11,6 +11,10 @@ class PagesController extends Controller
     {
         $page = Page::where('slug', $slug)->firstOrFail();
 
+        if ($page->redirects_to) {
+            return redirect($page->redirects_to);
+        }
+
         return view('pages.show', [
             'page' => $page,
         ]);

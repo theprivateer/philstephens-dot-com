@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
-use App\Models\Post;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class ArticlesController extends Controller
 {
     public function index()
     {
-        $page = Page::where('slug', 'posts')->first();
+        $page = Page::where('slug', 'blog')->first();
 
-        $posts = Post::where('top_level', true)
-                    ->latest('updated_at')
+        $posts = Article::published()
                     ->get();
 
-        return view('posts.index', [
+        return view('articles.index', [
             'page' => $page,
             'posts' => $posts,
         ]);
@@ -24,11 +23,11 @@ class PostsController extends Controller
 
     public function show(string $slug)
     {
-        $post = Post::where('slug', $slug)
-                    // ->published()
+        $post = Article::where('slug', $slug)
+                    ->published()
                     ->firstOrFail();
 
-        return view('posts.show', [
+        return view('articles.show', [
             'post' => $post,
         ]);
     }

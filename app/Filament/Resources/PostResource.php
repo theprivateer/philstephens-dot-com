@@ -26,11 +26,14 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('subtitle')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
-                Forms\Components\DatePicker::make('published_at')
-                    ->native(false),
+                // Forms\Components\DatePicker::make('published_at')
+                //     ->native(false),
             ]);
     }
 
@@ -40,13 +43,13 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->postStatus(),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->date()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('status')
+                //     ->postStatus(),
+                // Tables\Columns\TextColumn::make('published_at')
+                //     ->date()
+                //     ->sortable(),
             ])
-            ->defaultSort(fn ($query) => $query->orderByRaw('-published_at asc'))
+            // ->defaultSort(fn ($query) => $query->orderByRaw('-published_at asc'))
             ->filters([
                 //
             ])

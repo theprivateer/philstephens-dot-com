@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Album;
-use App\Models\Post;
+use App\Models\Article;
 
 return [
     'feeds' => [
@@ -14,7 +14,7 @@ return [
              * You can also pass an argument to that method. Note that their key must be the name of the parameter:
              * [App\Model::class, 'getAllFeedItems', 'parameterName' => 'argument']
              */
-            'items' => [Post::class, 'getFeedItems'],
+            'items' => [Article::class, 'getFeedItems'],
 
             /*
              * The feed will be available on this url.

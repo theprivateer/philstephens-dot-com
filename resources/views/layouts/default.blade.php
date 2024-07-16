@@ -26,9 +26,9 @@
 
                 <nav>
                     <ul>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/blog">Blog</a></li>
-                        <li><a href="/digital-garden">Digital Garden</a></li>
+                        <li><a href="{{ route('posts') }}">Posts</a></li>
+                        {{-- <li><a href="/links">Links</a></li>
+                        <li><a href="/notes">Notes</a></li> --}}
                     </ul>
                 </nav>
             </section>
@@ -37,11 +37,11 @@
 
             <section class="copyright">
                 <p>&copy; {{ date('Y') }} Phil Stephens</p>
-                <ul>
+                {{-- <ul>
                     <li>RSS:</li>
                     <li><a href="/feed">Blog</a></li>
                     <li><a href="/albums/feed">Albums</a></li>
-                </ul>
+                </ul> --}}
             </section>
         </main>
     </body>

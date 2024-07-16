@@ -9,12 +9,25 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Post extends Model implements Feedable
+class Article extends Model  implements Feedable
 {
     use HasFactory;
     use HasSlug;
+    use Publishable;
 
     protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'published_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the options for generating the slug.
@@ -41,7 +54,6 @@ class Post extends Model implements Feedable
 
     public static function getFeedItems()
     {
-        return Post::published()->get();
+        return Article::published()->get();
     }
-
 }

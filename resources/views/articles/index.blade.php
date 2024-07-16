@@ -4,15 +4,15 @@
 <article class="page-content">
     <h1>{{ optional($page)->title }}</h1>
 
-    {!! str(optional($page)->body)->markdown() !!}
+    {!! str(optional($page)->content)->markdown() !!}
 </article>
 
 <nav class="article-list">
     @foreach($posts as $post)
-        <a href="{{ route('post.show', $post->slug) }}">
+        <a href="{{ route('article.show', $post->slug) }}">
             <span>{{ $post->title }}</span>
             <hr>
-            <time datetime="{{ $post->updated_at->format('Y-m-d') }}">{{ $post->updated_at->format('F j, Y') }}</time>
+            <time datetime="{{ $post->published_at->format('Y-m-d') }}">{{ $post->published_at->format('F j') }}</time>
         </a>
     @endforeach
 </nav>
