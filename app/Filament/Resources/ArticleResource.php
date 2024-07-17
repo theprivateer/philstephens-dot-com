@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
-use App\Models\Post;
+use App\Filament\Resources\ArticleResource\Pages;
+use App\Filament\Resources\ArticleResource\RelationManagers;
+use App\Models\Article;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PostResource extends Resource
+class ArticleResource extends Resource
 {
-    protected static ?string $model = Post::class;
+    protected static ?string $model = Article::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -26,11 +26,15 @@ class PostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('subtitle')
-                    ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('link')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('source')
+                    ->maxLength(255),
+                Forms\Components\DatePicker::make('published_at')
+                    ->native(false),
             ]);
     }
 
@@ -40,7 +44,16 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->postStatus(),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->dateTime()
+                    ->sortable(),
             ])
+            ->defaultSort(fn ($query) => $query->orderByRaw('-published_at asc'))
             ->filters([
                 //
             ])
@@ -64,9 +77,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosts::route('/'),
-            'create' => Pages\CreatePost::route('/create'),
-            'edit' => Pages\EditPost::route('/{record}/edit'),
+            'index' => Pages\ListArticles::route('/'),
+            'create' => Pages\CreateArticle::route('/create'),
+            'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
     }
 }

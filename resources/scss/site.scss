@@ -244,3 +244,28 @@ blockquote
         text-align: left;
     }
 }
+
+.note-day {
+    display: flex;
+
+    .note-date {
+        min-width: 30%;
+    }
+
+    .notes {
+        flex-grow: 1;
+
+        .note-content {
+            margin-bottom: 3rem;
+
+            img
+            {
+                margin-bottom: 2rem;
+            }
+        }
+
+        .note-timestamp {
+            font-style: italic;
+        }
+    }
+}

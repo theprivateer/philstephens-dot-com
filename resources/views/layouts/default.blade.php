@@ -27,6 +27,7 @@
                 <nav>
                     <ul>
                         <li><a href="{{ route('posts') }}">Posts</a></li>
+                        <li><a href="{{ route('notes') }}">Notes</a></li>
                         {{-- <li><a href="/links">Links</a></li>
                         <li><a href="/notes">Notes</a></li> --}}
                     </ul>
