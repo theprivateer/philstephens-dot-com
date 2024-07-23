@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
-use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Post;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PostResource\RelationManagers;
 
 class PostResource extends Resource
 {
@@ -31,6 +33,7 @@ class PostResource extends Resource
                 Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
+                Toggle::make('top_level'),
             ]);
     }
 
@@ -40,6 +43,8 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                IconColumn::make('top_level')
+                    ->boolean(),
             ])
             ->filters([
                 //

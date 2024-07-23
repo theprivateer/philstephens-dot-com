@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\NoteResource\Pages;
@@ -39,8 +40,13 @@ class NoteResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('content')
+                    ->words(15)
+                    ->lineClamp(2),
+                TextColumn::make('created_at')
+                    ->dateTime(),
             ])
+            ->defaultSort(fn ($query) => $query->orderByRaw('created_at desc'))
             ->filters([
                 //
             ])
