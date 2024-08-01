@@ -2,9 +2,13 @@
 
 @section('content')
 <article class="page-content">
-    <h1>
+    <h1 @if($post->subtitle) class="with-subtitle" @endif>
         {{ $post->title }}
     </h1>
+
+    @if($post->subtitle)
+    <h3 class="subtitle">{{ $post->subtitle }}</h3>
+    @endif
 
     <p><em>Updated {{ $post->updated_at->format('F j, Y') }}</em></p>
 
