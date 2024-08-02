@@ -10,6 +10,10 @@
 
         @include('feed::links')
         @vite(['resources/scss/site.scss'])
+
+        @if(config('app.env') === 'production')
+        <script src="https://tinylytics.app/embed/Q2L4-zjDoFrx7tupZ1aB.js" defer></script>
+        @endif
     </head>
     <body>
         <main class="container">
