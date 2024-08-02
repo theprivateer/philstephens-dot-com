@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'tinylytics' => [
+        'id' => env('TINYLYTICS_SITE_ID'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

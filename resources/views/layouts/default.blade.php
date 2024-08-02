@@ -10,10 +10,6 @@
 
         @include('feed::links')
         @vite(['resources/scss/site.scss'])
-
-        @if(config('app.env') === 'production')
-        <script src="https://tinylytics.app/embed/Q2L4-zjDoFrx7tupZ1aB.js" defer></script>
-        @endif
     </head>
     <body>
         <main class="container">
@@ -49,5 +45,9 @@
                 </ul> --}}
             </section>
         </main>
+
+        @if(config('app.env') === 'production' && config('services.tinylytics.id'))
+        <script src="https://tinylytics.app/embed/{{ config('services.tinylytics.id') }}.js" defer></script>
+        @endif
     </body>
 </html>
