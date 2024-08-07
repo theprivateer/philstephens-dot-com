@@ -36,7 +36,27 @@
 
             @yield('content')
 
-            <section class="copyright">
+            <section class="footer">
+                <div>
+                    <h5>Sitemap</h5>
+
+                    <ul>
+                        <li><a href="/notes">Notes</a></li>
+                        <li><a href="/posts">Posts</a></li>
+                        <li><a href="/albums">365 Albums Project</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5>Connect</h5>
+
+                    <ul>
+                        <li><a href="https://www.linkedin.com/in/phil-stephens/" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://github.com/theprivateer" target="_blank">Github</a></li>
+                        <li><a href="mailto:hello@philstephens.com">Email</a></li>
+                    </ul>
+                </div>
+
                 <p>&copy; {{ date('Y') }} Phil Stephens</p>
                 {{-- <ul>
                     <li>RSS:</li>
