@@ -51,8 +51,8 @@
                     <h5>Connect</h5>
 
                     <ul>
-                        <li><a href="https://www.linkedin.com/in/phil-stephens/" target="_blank">LinkedIn</a></li>
-                        <li><a href="https://github.com/theprivateer" target="_blank">Github</a></li>
+                        {{-- <li><a href="https://www.linkedin.com/in/phil-stephens/" target="_blank">LinkedIn</a></li> --}}
+                        {{-- <li><a href="https://github.com/theprivateer" target="_blank">Github</a></li> --}}
                         <li><a href="mailto:hello@philstephens.com">Email</a></li>
                     </ul>
                 </div>
