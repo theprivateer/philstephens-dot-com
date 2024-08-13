@@ -81,6 +81,20 @@ p > a,
     }
 }
 
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    row-gap: 2rem;
+    column-gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media(max-width: 400px) {
+    .album-grid {
+        display: block;
+    }
+}
+
 .footer
 {
     padding-top: 2rem;

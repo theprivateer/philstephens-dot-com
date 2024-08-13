@@ -7,14 +7,12 @@
     {!! str(optional($page)->content)->markdown() !!}
 </article>
 
-<nav class="article-list">
+<div class="album-grid">
     @foreach($albums as $album)
     <a href="{{ route('album.show', $album->slug) }}">
-        <span>{{ $album->title }}</span>
-        <hr>
-        <span>{{ $album->artist }}</span>
+        <img src="/storage/{{ $album->album_artwork }}" alt="'{{ $album->title }}' by {{ $album->artist }}">
     </a>
     @endforeach
-</nav>
+</div>
 
 @endsection
