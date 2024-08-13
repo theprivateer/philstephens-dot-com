@@ -98,6 +98,7 @@ p > a,
 .footer
 {
     padding-top: 2rem;
+    padding-bottom: 2rem;
     font-size: 0.9rem;
     display: flex;
     justify-content: space-between;
@@ -292,6 +293,8 @@ blockquote
 
 .note-day {
     display: flex;
+    border-top: dashed 1px #ccc;
+    padding-top: 3rem;
 
     .note-date {
         min-width: 30%;
@@ -301,7 +304,14 @@ blockquote
         flex-grow: 1;
 
         .note-content {
-            margin-bottom: 3rem;
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+            border-top: dashed 1px #ccc;
+
+            &:first-child {
+                padding-top: 0;
+                border-top: none;
+            }
 
             img
             {
@@ -313,4 +323,55 @@ blockquote
             font-style: italic;
         }
     }
+}
+
+.link-day {
+    display: flex;
+    border-top: dashed 1px #ccc;
+    padding-top: 3rem;
+
+    .link-date {
+        min-width: 30%;
+    }
+
+    .links {
+        flex-grow: 1;
+
+        .link-content {
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+            border-top: dashed 1px #ccc;
+
+            &:first-child {
+                padding-top: 0;
+                border-top: none;
+            }
+
+            h3 {
+                margin: 0 0 0.4rem;
+                font-size: 1.2rem;
+
+                a {
+                    border-bottom: solid 1px #ccc;
+
+                    svg {
+                        display: inline-block;
+                        height: 1rem;
+                    }
+                }
+            }
+
+            h5 {
+                margin: 0 0 1.5rem;
+                font-size: 0.8rem;
+                font-weight: normal;
+            }
+        }
+    }
+}
+
+.article-list .note-day:first-child,
+.article-list .link-day:first-child {
+    border-top: none;
+    padding-top: 0;
 }

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PageResource\Pages;
-use App\Filament\Resources\PageResource\RelationManagers;
-use App\Models\Page;
+use App\Filament\Resources\LinkResource\Pages;
+use App\Filament\Resources\LinkResource\RelationManagers;
+use App\Models\Link;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,11 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PageResource extends Resource
+class LinkResource extends Resource
 {
-    protected static ?string $model = Page::class;
+    protected static ?string $model = Link::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
+    protected static ?string $navigationIcon = 'heroicon-o-link';
 
     public static function form(Form $form): Form
     {
@@ -26,12 +26,10 @@ class PageResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('redirects_to')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('subtitle')
+                Forms\Components\TextInput::make('url')
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\MarkdownEditor::make('content')
-                    ->fileAttachmentsDirectory('images/' . date('Ymd'))
                     ->columnSpanFull(),
             ]);
     }
@@ -42,7 +40,12 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('url')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
             ])
+            ->defaultSort(fn ($query) => $query->orderByRaw('created_at desc'))
             ->filters([
                 //
             ])
@@ -66,9 +69,9 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+            'index' => Pages\ListLinks::route('/'),
+            'create' => Pages\CreateLink::route('/create'),
+            'edit' => Pages\EditLink::route('/{record}/edit'),
         ];
     }
 }

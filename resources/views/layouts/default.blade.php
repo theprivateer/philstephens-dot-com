@@ -28,8 +28,7 @@
                     <ul>
                         <li><a href="{{ route('posts') }}">Posts</a></li>
                         <li><a href="{{ route('notes') }}">Notes</a></li>
-                        {{-- <li><a href="/links">Links</a></li>
-                        <li><a href="/notes">Notes</a></li> --}}
+                        <li><a href="{{ route('links') }}">Links</a></li>
                     </ul>
                 </nav>
             </section>
@@ -41,9 +40,10 @@
                     <h5>Sitemap</h5>
 
                     <ul>
-                        <li><a href="/notes">Notes</a></li>
-                        <li><a href="/posts">Posts</a></li>
-                        <li><a href="/albums">365 Albums Project</a></li>
+                        <li><a href="{{ route('posts') }}">Posts</a></li>
+                        <li><a href="{{ route('notes') }}">Notes</a></li>
+                        <li><a href="{{ route('links') }}">Links</a></li>
+                        <li><a href="{{ route('albums') }}">365 Albums Project</a></li>
                     </ul>
                 </div>
 

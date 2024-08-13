@@ -2,7 +2,13 @@
 
 @section('content')
 <article class="page-content">
-    <h1>{{ optional($page)->title }}</h1>
+    <h1 @if(optional($page)->subtitle) class="with-subtitle" @endif>
+        {{ optional($page)->title }}
+    </h1>
+
+    @if(optional($page)->subtitle)
+    <h3 class="subtitle">{{ optional($page)->subtitle }}</h3>
+    @endif
 
     {!! str(optional($page)->content)->markdown() !!}
 </article>
