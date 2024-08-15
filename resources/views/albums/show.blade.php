@@ -7,7 +7,7 @@
 
         <h1>{{ $album->title }}</h1>
         <h2>{{ $album->artist }} ({{ $album->released }})</h2>
-        <p><a href="{{ $album->listen_link }}">Listen Here</a></p>
+        <p><a href="{{ $album->listen_link }}" target="_blank">Listen Here</a></p>
     </section>
 
     {!! str($album->content)->markdown() !!}

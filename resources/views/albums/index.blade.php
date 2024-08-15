@@ -16,6 +16,12 @@
 <div class="album-grid">
     @foreach($albums as $album)
     <a href="{{ route('album.show', $album->slug) }}">
+        <div>
+            <p>
+                {{ $album->title }}<br />
+                <em>{{ $album->artist }}</em>
+            </p>
+        </div>
         <img src="/storage/{{ $album->album_artwork }}" alt="'{{ $album->title }}' by {{ $album->artist }}">
     </a>
     @endforeach
