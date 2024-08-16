@@ -2,23 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AlbumResource\Pages;
-use App\Filament\Resources\AlbumResource\RelationManagers;
-use App\Models\Album;
 use Filament\Forms;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Album;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\AlbumResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\AlbumResource\RelationManagers;
 
 class AlbumResource extends Resource
 {
     protected static ?string $model = Album::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-speaker-wave';
+
+    protected static ?string $navigationGroup = 'Collections';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -51,10 +56,14 @@ class AlbumResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('album_artwork')
+                    ->label('Artwork'),
                 Tables\Columns\TextColumn::make('title')
+                    ->description(fn (Album $record): string => $record->artist)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('artist')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('status')
                     ->postStatus(),
                 Tables\Columns\TextColumn::make('published_at')

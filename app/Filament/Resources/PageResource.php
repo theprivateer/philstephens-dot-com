@@ -19,6 +19,10 @@ class PageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
 
+    protected static ?string $navigationGroup = 'Content';
+
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -41,7 +45,9 @@ class PageResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->description(fn (Page $record): ?string => $record->subtitle)
                     ->searchable(),
+                Tables\Columns\TextColumn::make('redirects_to')
             ])
             ->filters([
                 //

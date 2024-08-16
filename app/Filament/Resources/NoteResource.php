@@ -8,7 +8,9 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use App\Filament\Clusters\Streams;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\NoteResource\Pages;
@@ -20,6 +22,10 @@ class NoteResource extends Resource
     protected static ?string $model = Note::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+
+    protected static ?string $navigationGroup = 'Streams';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -41,8 +47,13 @@ class NoteResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('content')
-                    ->words(15)
+                    ->formatStateUsing(function (string $state) {
+                        return str($state)->markdown()->stripTags();
+                    })
+                    ->words(10)
                     ->lineClamp(2),
+                ImageColumn::make('image')
+                    ->label('Image'),
                 TextColumn::make('created_at')
                     ->dateTime(),
             ])

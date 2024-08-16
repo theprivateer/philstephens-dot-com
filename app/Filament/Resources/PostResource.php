@@ -21,6 +21,10 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
+    protected static ?string $navigationGroup = 'Content';
+
+    protected static ?int $navigationSort = 1;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -42,8 +46,8 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->description(fn (Post $record): ?string => $record->subtitle)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('subtitle'),
                 IconColumn::make('top_level')
                     ->boolean(),
             ])
