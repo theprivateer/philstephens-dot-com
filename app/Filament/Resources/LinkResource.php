@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Clusters\Streams;
 use App\Filament\Resources\LinkResource\Pages;
 use App\Filament\Resources\LinkResource\RelationManagers;
 use App\Models\Link;
