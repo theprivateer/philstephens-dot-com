@@ -43,6 +43,7 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('subtitle'),
                 IconColumn::make('top_level')
                     ->boolean(),
             ])
