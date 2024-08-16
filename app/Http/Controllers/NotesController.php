@@ -18,8 +18,6 @@ class NotesController extends Controller
             return $note->created_at->format('F j, Y');
         });
 
-        // dd($notes);
-
         return view('notes.index', [
             'page' => $page,
             'notes' => $notes,

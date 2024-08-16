@@ -14,12 +14,25 @@
 </article>
 
 <nav class="article-list">
-    @foreach($posts as $post)
-        <a href="{{ route('post.show', $post->slug) }}">
-            <span>{{ $post->title }}</span>
-            <hr>
-            <time datetime="{{ $post->updated_at->format('Y-m-d') }}">{{ $post->updated_at->format('F j, Y') }}</time>
-        </a>
+    @foreach($posts as $key => $day)
+        <section class="post-day">
+            <div class="post-date">{{ $key }}</div>
+            <div class="posts">
+                @foreach($day as $post)
+                    <div class="post-content">
+                        <h3>
+                            <a href="{{ route('post.show', $post->slug) }}">
+                                {{ $post->title }}
+                            </a>
+                        </h3>
+
+                        @if($post->subtitle)
+                        <h5>{{ $post->subtitle }}</h5>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </section>
     @endforeach
 </nav>
 

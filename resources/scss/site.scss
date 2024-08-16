@@ -399,8 +399,45 @@ blockquote
     }
 }
 
+.post-day {
+    display: flex;
+    border-top: dashed 1px #ccc;
+    padding-top: 3rem;
+
+    .post-date {
+        min-width: 30%;
+    }
+
+    .posts {
+        flex-grow: 1;
+
+        .post-content {
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+            border-top: dashed 1px #ccc;
+
+            &:first-child {
+                padding-top: 0;
+                border-top: none;
+            }
+
+            h3 {
+                margin: 0 0 0.4rem;
+                font-size: 1.2rem;
+            }
+
+            h5 {
+                margin: 0;
+                font-size: 1rem;
+                font-weight: normal;
+            }
+        }
+    }
+}
+
 .article-list .note-day:first-child,
-.article-list .link-day:first-child {
+.article-list .link-day:first-child,
+.article-list .post-day:first-child {
     border-top: none;
     padding-top: 0;
 }

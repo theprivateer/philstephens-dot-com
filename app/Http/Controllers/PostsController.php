@@ -16,6 +16,10 @@ class PostsController extends Controller
                     ->latest('updated_at')
                     ->get();
 
+        $posts = $posts->groupBy(function ($post) {
+            return $post->updated_at->format('F j, Y');
+        });
+
         return view('posts.index', [
             'page' => $page,
             'posts' => $posts,
@@ -25,7 +29,6 @@ class PostsController extends Controller
     public function show(string $slug)
     {
         $post = Post::where('slug', $slug)
-                    // ->published()
                     ->firstOrFail();
 
         return view('posts.show', [
