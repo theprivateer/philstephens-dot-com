@@ -22,10 +22,16 @@
                 @foreach($day as $note)
                     <div class="note-content">
                         @if($note->image)
-                        <img src="/storage/{{ $note->image }}" />
+                        <img src="/storage/{{ $note->image }}"
+                        @if($note->use_content_as_img_alt)
+                            alt="{{ $note->content }}"
+                        @endif
+                        />
                         @endif
 
-                        {!! str($note->content)->markdown() !!}
+                        @if( ! $note->use_content_as_img_alt)
+                            {!! str($note->content)->markdown() !!}
+                        @endif
 
                         <time class="note-timestamp" datetime="{{ $note->created_at->format('Y-m-d H:i:s') }}">{{ $note->created_at->format('g:i a') }}</time>
                     </div>

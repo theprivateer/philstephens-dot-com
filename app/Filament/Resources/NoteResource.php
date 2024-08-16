@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
@@ -38,6 +39,8 @@ class NoteResource extends Resource
                     ->maxFiles(1)
                     ->directory('images/notes')
                     ->columnSpanFull(),
+                Toggle::make('use_content_as_img_alt')
+                    ->label('Use content field as <img /> alt tag'),
             ]);
     }
 
