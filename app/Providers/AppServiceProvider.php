@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Enums\PostStatus;
+use App\Models\Book;
+use App\Observers\BookObserver;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Book::observe(BookObserver::class);
+
         TextColumn::macro('postStatus', function () {
             $this
                 ->badge()

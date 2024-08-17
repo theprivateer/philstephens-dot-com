@@ -31,6 +31,10 @@ class PostsController extends Controller
         $post = Post::where('slug', $slug)
                     ->firstOrFail();
 
+        if ($post->redirects_to) {
+            return redirect($post->redirects_to);
+        }
+
         return view('posts.show', [
             'post' => $post,
         ]);

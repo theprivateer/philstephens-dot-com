@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\LinksController;
 use App\Http\Controllers\NotesController;
 use App\Http\Controllers\PagesController;
@@ -17,6 +18,8 @@ Route::get('/notes', NotesController::class)->name('notes');
 Route::get('/links', LinksController::class)->name('links');
 Route::get('/albums', [AlbumsController::class, 'index'])->name('albums');
 Route::get('/album/{slug}', [AlbumsController::class, 'show'])->name('album.show');
+Route::get('/bookshelf', [BooksController::class, 'index'])->name('books');
+Route::get('/bookshelf/book/{slug}', [BooksController::class, 'show'])->name('book.show');
 // Deprecated
 Route::get('/blog', [ArticlesController::class, 'index']);
 Route::get('/blog/{slug}', [ArticlesController::class, 'show'])->name('article.show');
