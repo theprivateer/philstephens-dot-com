@@ -18,6 +18,7 @@
     <a href="{{ route('album.show', $album->slug) }}">
         <div>
             <p>
+                <strong>#{{ $album->id }}</strong><br />
                 {{ $album->title }}<br />
                 <em>{{ $album->artist }}</em>
             </p>
