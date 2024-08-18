@@ -7,6 +7,8 @@ use App\Http\Controllers\NotesController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AlbumsController;
+use App\Http\Controllers\ResumeController;
+use App\Http\Controllers\JobRoleController;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\HomepageController;
 
@@ -20,6 +22,8 @@ Route::get('/albums', [AlbumsController::class, 'index'])->name('albums');
 Route::get('/album/{slug}', [AlbumsController::class, 'show'])->name('album.show');
 Route::get('/bookshelf', [BooksController::class, 'index'])->name('books');
 Route::get('/bookshelf/book/{slug}', [BooksController::class, 'show'])->name('book.show');
+Route::get('/resume', ResumeController::class)->name('resume');
+Route::get('/resume/role/{slug}', JobRoleController::class)->name('resume.role');
 // Deprecated
 Route::get('/blog', [ArticlesController::class, 'index']);
 Route::get('/blog/{slug}', [ArticlesController::class, 'show'])->name('article.show');
