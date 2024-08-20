@@ -13,8 +13,6 @@ class HomepageController extends Controller
     {
         $page = Page::where('slug', 'home')->first();
 
-
-
         return view('pages.homepage', [
             'page' => $page,
         ]);
