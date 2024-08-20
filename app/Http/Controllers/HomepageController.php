@@ -13,18 +13,8 @@ class HomepageController extends Controller
     {
         $page = Page::where('slug', 'home')->first();
 
-        // $posts = Post::published()
-        //             ->limit(10)
-        //             ->get();
-
-        $albums = Album::published()
-                    ->limit(10)
-                    ->get();
-
         return view('pages.homepage', [
             'page' => $page,
-            // 'posts' => $posts,
-            'albums' => $albums,
         ]);
     }
 }
