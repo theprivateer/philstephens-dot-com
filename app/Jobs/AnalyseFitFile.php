@@ -59,21 +59,6 @@ class AnalyseFitFile implements ShouldQueue
             'stationary' => false,
         ];
 
-        // Quick and dirty way of detecting whether this is a stationary ride
-        // Ride is recorded via the WAHOO app on my iPhone
-        if (strpos($this->activity->file, 'WAHOOAPP') !== false ||
-            strpos($this->activity->file, 'Cycling-Wahoo') !== false) {
-            $activity_data['stationary'] = true;
-        }
-
-        if (empty($this->activity->title)) {
-            $activity_data['title'] = ActivityTitleService::getTitle(
-                $activity_data['sport'],
-                $activity_data['started_at'],
-                $this->activity->stationary ?? false
-            );
-        }
-
         $this->activity->update($activity_data);
 
         $latLongPoints = [];
@@ -116,9 +101,20 @@ class AnalyseFitFile implements ShouldQueue
             $this->activity->update([
                 'polyline' => $encoded
             ]);
+        } else {
+            $this->activity->update([
+                'stationary' => true,
+            ]);
         }
 
+        $title = $this->activity->title ?: ActivityTitleService::getTitle(
+                    $activity_data['sport'],
+                    $activity_data['started_at'],
+                    $this->activity->stationary ?? false
+                );
+
         $this->activity->update([
+            'title' => $title,
             'processed_at' => now(),
         ]);
     }
