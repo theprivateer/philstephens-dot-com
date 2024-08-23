@@ -22,7 +22,8 @@ use Filament\Forms\Components\Placeholder;
 use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
-use App\Forms\Components\LivePreview;
+use App\Livewire\LivePreview;
+use Filament\Forms\Components\Livewire;
 
 class PostResource extends Resource
 {
@@ -44,7 +45,8 @@ class PostResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                         ->required()
-                                        ->maxLength(255),
+                                        ->maxLength(255)
+                                        ->live(),
 
                                 Forms\Components\TextInput::make('subtitle')
                                     ->maxLength(255),
@@ -58,7 +60,7 @@ class PostResource extends Resource
                     ]),
 
 
-                    LivePreview::make(''),
+                    Livewire::make(LivePreview::class),
                     // Placeholder::make('')
                     //     ->content(function (Get $get): HtmlString {
                     //         return new HtmlString('
