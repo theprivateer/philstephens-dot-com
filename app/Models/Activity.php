@@ -15,11 +15,12 @@ class Activity extends Model
         'file', 'total_elapsed_time', 'total_timer_time', 'avg_speed', 'max_speed',
         'total_distance', 'avg_cadence', 'max_cadence', 'avg_power', 'max_power',
         'avg_heart_rate', 'max_heart_rate', 'total_calories', 'total_ascent_device',
-        'polyline',
+        'polyline', 'processed_at',
     ];
 
     protected $casts = [
         'started_at' => 'datetime',
+        'processed_at' => 'datetime',
     ];
 
     public function activityPoints(): HasMany

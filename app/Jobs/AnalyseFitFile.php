@@ -111,5 +111,8 @@ class AnalyseFitFile implements ShouldQueue
             ]);
         }
 
+        $this->activity->update([
+            'processed_at' => now(),
+        ]);
     }
 }

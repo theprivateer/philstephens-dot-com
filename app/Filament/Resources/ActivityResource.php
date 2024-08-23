@@ -89,6 +89,9 @@ class ActivityResource extends Resource
                 Tables\Columns\TextColumn::make('sport'),
                 Tables\Columns\IconColumn::make('stationary')
                     ->boolean(),
+                Tables\Columns\IconColumn::make('processed_at')
+                    ->label('Processed')
+                    ->boolean(),
             ])
             ->defaultSort(fn ($query) => $query->orderByRaw('-started_at asc'))
             ->filters([
