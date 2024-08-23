@@ -87,6 +87,8 @@ class ActivityResource extends Resource
                 Tables\Columns\TextColumn::make('started_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('sport'),
+                Tables\Columns\TextColumn::make('total_distance')
+                    ->suffix('km'),
                 Tables\Columns\IconColumn::make('stationary')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('processed_at')
