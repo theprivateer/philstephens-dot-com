@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Enums\PostStatus;
 use App\Models\Book;
+use App\Models\Activity;
+use App\Enums\PostStatus;
 use App\Observers\BookObserver;
+use App\Observers\ActivityObserver;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Activity::observe(ActivityObserver::class);
         Book::observe(BookObserver::class);
 
         TextColumn::macro('postStatus', function () {
