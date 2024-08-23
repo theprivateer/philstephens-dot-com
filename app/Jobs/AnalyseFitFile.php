@@ -56,8 +56,15 @@ class AnalyseFitFile implements ShouldQueue
             'max_power' => $pFFA->data_mesgs['session']['max_power'] ?? null,
             'total_calories' => $pFFA->data_mesgs['session']['total_calories'],
             'total_ascent_device' => $pFFA->data_mesgs['session']['total_ascent'] ?? null,
-            // 'stationary' => false, //is_null($pFFA->data_mesgs['session']['total_ascent'] ?? null),
+            'stationary' => false,
         ];
+
+        // Quick and dirty way of detecting whether this is a stationary ride
+        // Ride is recorded via the WAHOO app on my iPhone
+        if (strpos($this->activity->file, 'WAHOOAPP') !== false ||
+            strpos($this->activity->file, 'Cycling-Wahoo') !== false) {
+            $activity_data['stationary'] = true;
+        }
 
         if (empty($this->activity->title)) {
             $activity_data['title'] = ActivityTitleService::getTitle(
