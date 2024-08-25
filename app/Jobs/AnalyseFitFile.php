@@ -73,18 +73,18 @@ class AnalyseFitFile implements ShouldQueue
                 ]);
             }
 
-            $point->fill([
-                'position_lat' => $pFFA->data_mesgs['record']['position_lat'][$t] ?? null,
-                'position_long' => $pFFA->data_mesgs['record']['position_long'][$t] ?? null,
-                'heart_rate' => $pFFA->data_mesgs['record']['heart_rate'][$t] ?? null,
-                'cadence' => $pFFA->data_mesgs['record']['cadence'][$t] ?? null,
-                'speed' => $pFFA->data_mesgs['record']['speed'][$t] ?? null,
-                'altitude_device' => isset($pFFA->data_mesgs['record']['altitude'][$t]) ? $pFFA->data_mesgs['record']['altitude'][$t] : null,
-                'power' => $pFFA->data_mesgs['record']['power'][$t] ?? null,
-                'cumulative_distance' => $pFFA->data_mesgs['record']['distance'][$t],
-            ]);
+            // $point->fill([
+            //     'position_lat' => $pFFA->data_mesgs['record']['position_lat'][$t] ?? null,
+            //     'position_long' => $pFFA->data_mesgs['record']['position_long'][$t] ?? null,
+            //     'heart_rate' => $pFFA->data_mesgs['record']['heart_rate'][$t] ?? null,
+            //     'cadence' => $pFFA->data_mesgs['record']['cadence'][$t] ?? null,
+            //     'speed' => $pFFA->data_mesgs['record']['speed'][$t] ?? null,
+            //     'altitude_device' => isset($pFFA->data_mesgs['record']['altitude'][$t]) ? $pFFA->data_mesgs['record']['altitude'][$t] : null,
+            //     'power' => $pFFA->data_mesgs['record']['power'][$t] ?? null,
+            //     'cumulative_distance' => $pFFA->data_mesgs['record']['distance'][$t],
+            // ]);
 
-            $point->save();
+            // $point->save();
 
             if (! empty($pFFA->data_mesgs['record']['position_lat'][$t] ?? null) &&
             ! empty($pFFA->data_mesgs['record']['position_long'][$t] ?? null)) {
