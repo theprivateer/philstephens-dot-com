@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Sports;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,5 +28,22 @@ class Activity extends Model
     public function activityPoints(): HasMany
     {
         return $this->hasMany(ActivityPoint::class);
+    }
+
+    public function getSportAttribute($value): Sports
+    {
+        if ($value == 'cycling') {
+            return Sports::CYCLING;
+        }
+
+        if ($value == 'running') {
+            return Sports::RUNNING;
+        }
+
+        if ($value == 'walking') {
+            return Sports::WALKING;
+        }
+
+        return Sports::ACTIVITY;
     }
 }

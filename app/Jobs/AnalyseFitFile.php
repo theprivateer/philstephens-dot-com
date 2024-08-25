@@ -46,7 +46,7 @@ class AnalyseFitFile implements ShouldQueue
             'total_elapsed_time' => $pFFA->data_mesgs['session']['total_elapsed_time'],
             'total_timer_time' => $pFFA->data_mesgs['session']['total_timer_time'],
             'avg_speed' => $pFFA->data_mesgs['session']['avg_speed'],
-            'max_speed' => $pFFA->data_mesgs['session']['max_speed'],
+            'max_speed' => $pFFA->data_mesgs['session']['max_speed'] ?? null,
             'total_distance' => $pFFA->data_mesgs['session']['total_distance'],
             'avg_cadence' => $pFFA->data_mesgs['session']['avg_cadence'] ?? null,
             'max_cadence' => $pFFA->data_mesgs['session']['max_cadence'] ?? null,

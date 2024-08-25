@@ -6,11 +6,16 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Models\Activity;
 use Filament\Forms\Form;
+use Carbon\CarbonInterval;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\Summarizers\Sum;
 use App\Filament\Resources\ActivityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ActivityResource\RelationManagers;
@@ -85,19 +90,67 @@ class ActivityResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('started_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('sport'),
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('sport')->sport(),
                 Tables\Columns\TextColumn::make('total_distance')
-                    ->suffix('km'),
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state, 2) . 'km';
+                    })
+                    ->summarize(
+                        Sum::make()
+                            ->label('Total')
+                            ->formatStateUsing(function ($state) {
+                                return number_format($state) . 'km';
+                            })
+                    ),
+                Tables\Columns\TextColumn::make('total_timer_time')
+                    ->label('Duration')
+                    ->formatStateUsing(function ($state) {
+                        return CarbonInterval::create(
+                            0, 0, 0, 0, 0, 0, $state
+                        )->cascade()->forHumans(['short' => true, 'parts' => 2]);
+                    })
+                    ->summarize(
+                        Sum::make()
+                            ->label('Total')
+                            ->formatStateUsing(function ($state) {
+                                return CarbonInterval::create(
+                                    0, 0, 0, 0, 0, 0, $state
+                                )->cascade()->forHumans(['short' => true, 'parts' => 2]);
+                            })
+                    ),
                 Tables\Columns\IconColumn::make('stationary')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('processed_at')
-                    ->label('Processed')
-                    ->boolean(),
+                    ->boolean()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\IconColumn::make('processed_at')
+                //     ->label('Processed')
+                //     ->boolean(),
             ])
             ->defaultSort(fn ($query) => $query->orderByRaw('-started_at asc'))
             ->filters([
-                //
+                SelectFilter::make('sport')
+                    ->options([
+                        'cycling' => 'Cycling',
+                        'running' => 'Running',
+                        'walking' => 'Walking',
+                    ]),
+                Filter::make('started_at')
+                    ->form([
+                        DatePicker::make('started_from')->native(false),
+                        DatePicker::make('started_until')->native(false),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['started_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('started_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['started_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('started_at', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

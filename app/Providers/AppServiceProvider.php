@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Book;
 use App\Models\Activity;
 use App\Enums\PostStatus;
+use App\Enums\Sports;
 use App\Observers\BookObserver;
 use App\Observers\ActivityObserver;
 use Filament\Tables\Columns\TextColumn;
@@ -40,6 +41,24 @@ class AppServiceProvider extends ServiceProvider
                     return 'gray';
                 })
                 ->formatStateUsing(fn (PostStatus $state): string => strtoupper($state->value));
+
+            return $this;
+        });
+
+        TextColumn::macro('sport', function () {
+            $this
+                ->badge()
+                ->color(static function ($state): string {
+                    if ($state === Sports::CYCLING) {
+                        return 'success';
+                    } elseif ($state === Sports::RUNNING) {
+                        return 'warning';
+                    } elseif ($state === Sports::WALKING) {
+                        return 'info';
+                    }
+                    return 'gray';
+                })
+                ->formatStateUsing(fn (Sports $state): string => strtoupper($state->value));
 
             return $this;
         });
