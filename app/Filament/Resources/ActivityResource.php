@@ -8,6 +8,7 @@ use App\Models\Activity;
 use Filament\Forms\Form;
 use Carbon\CarbonInterval;
 use Filament\Tables\Table;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Section;
@@ -15,10 +16,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Columns\Summarizers\Sum;
 use App\Filament\Resources\ActivityResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ActivityResource\RelationManagers;
+use Filament\Infolists\Components\Section as InfolistSection;
 
 class ActivityResource extends Resource
 {
@@ -30,6 +34,64 @@ class ActivityResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make('title')
+                    ->size(TextEntry\TextEntrySize::Large),
+
+                    InfolistSection::make()
+                        ->schema([
+                            TextEntry::make('started_at')
+                            ->dateTime(),
+                        TextEntry::make('sport'),
+                        IconEntry::make('stationary')
+                            ->boolean(),
+
+                        TextEntry::make('total_timer_time')
+                            ->label('Duration')
+                            ->formatStateUsing(function ($state) {
+                                return CarbonInterval::create(
+                                    0, 0, 0, 0, 0, 0, $state
+                                )->cascade()->forHumans(['short' => true, 'parts' => 2]);
+                            }),
+                        TextEntry::make('total_distance')
+                            ->numeric()
+                            ->suffix(' km'),
+                            TextEntry::make('total_calories')
+                            ->numeric(),
+                        ])->columns(2),
+                InfolistSection::make()
+                    ->schema([
+                        TextEntry::make('avg_speed')
+                    ->numeric()
+                    ->suffix(' km/h'),
+                TextEntry::make('max_speed')
+                    ->numeric()
+                    ->suffix(' km/h'),
+
+                        TextEntry::make('avg_cadence')
+                            ->numeric(),
+                        TextEntry::make('max_cadence')
+                            ->numeric(),
+                        TextEntry::make('avg_power')
+                            ->numeric(),
+                        TextEntry::make('max_power')
+                            ->numeric(),
+                        TextEntry::make('avg_heart_rate')
+                            ->numeric()
+                            ->suffix(' bpm'),
+                        TextEntry::make('max_heart_rate')
+                            ->numeric()
+                            ->suffix(' bpm'),
+                    ])
+                    ->columns(2),
+
+
+            ]);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -37,10 +99,10 @@ class ActivityResource extends Resource
                 Section::make('FIT File')
                     ->schema([
                         FileUpload::make('file')
-                        ->maxFiles(1)
-                        ->directory('activities')
-                        ->preserveFilenames()
-                        ->columnSpanFull(),
+                            ->maxFiles(1)
+                            ->directory('activities')
+                            ->preserveFilenames()
+                            ->columnSpanFull(),
                         Forms\Components\Toggle::make('stationary'),
                     ]),
 
@@ -153,6 +215,7 @@ class ActivityResource extends Resource
                     })
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -174,6 +237,7 @@ class ActivityResource extends Resource
         return [
             'index' => Pages\ListActivities::route('/'),
             'create' => Pages\CreateActivity::route('/create'),
+            'view' => Pages\ViewActivity::route('/{record}'),
             'edit' => Pages\EditActivity::route('/{record}/edit'),
         ];
     }
