@@ -14,6 +14,13 @@ Artisan::command('fit:sync', function () {
     $files = Storage::disk('public')->files('activities');
 
     collect($files)->each(function ($file) {
+        $parts = explode('.', $file);
+        $extension = array_pop($parts);
+
+        if ($extension != 'fit') {
+            return;
+        }
+
         if (! $exists = Activity::where('file', $file)->first()) {
             Activity::create([
                 'file' => $file,
