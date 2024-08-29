@@ -113,6 +113,8 @@ class ActivityResource extends Resource
                     ->fileAttachmentsDirectory('images/activities')
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('started_at'),
+                Forms\Components\TextInput::make('timezone')
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('sport')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subsport')

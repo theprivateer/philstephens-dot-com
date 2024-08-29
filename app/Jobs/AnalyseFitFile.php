@@ -41,8 +41,8 @@ class AnalyseFitFile implements ShouldQueue
 
         $activity_data = [
             'sport' => strtolower($pFFA->sport()),
-            'timezone' => config('app.timezone'),
-            'started_at' => Carbon::createFromTimestamp($pFFA->data_mesgs['session']['start_time'])->setTimezone(config('app.timezone')),
+            'timezone' =>  $this->activity->timezone ?: config('app.timezone'),
+            'started_at' => Carbon::createFromTimestamp($pFFA->data_mesgs['session']['start_time'])->setTimezone($this->activity->timezone ?: config('app.timezone')),
             'total_elapsed_time' => $pFFA->data_mesgs['session']['total_elapsed_time'],
             'total_timer_time' => $pFFA->data_mesgs['session']['total_timer_time'],
             'avg_speed' => $pFFA->data_mesgs['session']['avg_speed'] ?? null,

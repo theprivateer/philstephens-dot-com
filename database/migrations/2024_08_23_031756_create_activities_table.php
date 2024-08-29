@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('timezone')->default('UTC');
+            $table->string('timezone')->nullable();
             $table->text('file')->nullable();
             $table->string('sport')->nullable();
             $table->string('subsport')->nullable();
