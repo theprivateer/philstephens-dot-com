@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Polyline;
 use App\Models\Activity;
+use Glhd\Linen\CsvReader;
 use App\Models\ActivityPoint;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Carbon;
@@ -33,16 +34,19 @@ class AnalyseFitFile implements ShouldQueue
      */
     public function handle(): void
     {
-        ActivityPoint::where('activity_id', $this->activity->id)->delete();
+        // ActivityPoint::where('activity_id', $this->activity->id)->delete();
+        // $stravaActivities =
 
         $options = ['fix_data' => ['all']];
 
         $pFFA = new phpFITFileAnalysis(storage_path('app/public/' . $this->activity->file), $options);
 
+        $timezone = $this->getHistoricActivityTimezone($pFFA->data_mesgs['session']['start_time']);
+
         $activity_data = [
             'sport' => strtolower($pFFA->sport()),
-            'timezone' =>  $this->activity->timezone ?: config('app.timezone'),
-            'started_at' => Carbon::createFromTimestamp($pFFA->data_mesgs['session']['start_time'])->setTimezone($this->activity->timezone ?: config('app.timezone')),
+            'timezone' =>  $timezone,
+            'started_at' => Carbon::createFromTimestamp($pFFA->data_mesgs['session']['start_time'])->setTimezone($timezone),
             'total_elapsed_time' => $pFFA->data_mesgs['session']['total_elapsed_time'],
             'total_timer_time' => $pFFA->data_mesgs['session']['total_timer_time'],
             'avg_speed' => $pFFA->data_mesgs['session']['avg_speed'] ?? null,
@@ -64,14 +68,14 @@ class AnalyseFitFile implements ShouldQueue
         $latLongPoints = [];
 
         foreach ($pFFA->data_mesgs['record']['timestamp'] as $t) {
-            $point = ActivityPoint::where('activity_id', $this->activity->id)->where('timestamp', $t)->first();
+            // $point = ActivityPoint::where('activity_id', $this->activity->id)->where('timestamp', $t)->first();
 
-            if (! $point) {
-                $point = new ActivityPoint([
-                    'activity_id' => $this->activity->id,
-                    'timestamp' => $t,
-                ]);
-            }
+            // if (! $point) {
+            //     $point = new ActivityPoint([
+            //         'activity_id' => $this->activity->id,
+            //         'timestamp' => $t,
+            //     ]);
+            // }
 
             // $point->fill([
             //     'position_lat' => $pFFA->data_mesgs['record']['position_lat'][$t] ?? null,
@@ -107,15 +111,53 @@ class AnalyseFitFile implements ShouldQueue
             ]);
         }
 
-        $title = $this->activity->title ?: ActivityTitleService::getTitle(
-                    $activity_data['sport'],
-                    $activity_data['started_at'],
-                    $this->activity->stationary ?? false
-                );
+        $strava = CsvReader::from(storage_path('app/public/activities/activities.csv'))
+                        ->collect()
+                        ->keyBy('filename')
+                        ->toArray();
+
+        if (isset($strava[$this->activity->file . '.gz'])) {
+            $title = $strava[$this->activity->file . '.gz']['activity_name'];
+            $content = $strava[$this->activity->file . '.gz']['activity_description'];
+            $tags = ['Strava'];
+        } else {
+            $title = $this->activity->title ?: ActivityTitleService::getTitle(
+                $activity_data['sport'],
+                $activity_data['started_at'],
+                $this->activity->stationary ?? false
+            );
+
+            if (strpos($this->activity->file, 'ELEMNT') !== false ||
+                strpos($this->activity->file, 'FITNESS') !== false ||
+                strpos($this->activity->file, 'WAHOO') !== false) {
+                $tags = ['Wahoo'];
+            }
+        }
 
         $this->activity->update([
             'title' => $title,
+            'content' => $this->activity->content ?: $content ?? null,
+            'tags' => $this->activity->tags ?: $tags ?? null,
             'processed_at' => now(),
         ]);
+    }
+
+    private function getHistoricActivityTimezone($start_string)
+    {
+        if ($this->activity->timezone) {
+            return $this->activity->timezone;
+        }
+
+        $start = Carbon::createFromTimestamp($start_string);
+
+        if ($start->lt(Carbon::parse('2013-05-01'))) {
+            return 'Europe/London';
+        }
+
+        if ($start->lt(Carbon::parse('2013-08-01'))) {
+            return 'Pacific/Auckland';
+        }
+
+        return config('app.timezone');
     }
 }

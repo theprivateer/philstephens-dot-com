@@ -13,16 +13,17 @@ class Activity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'timezone', 'title', 'sport', 'started_at', 'stationary', 'subsport',
+        'timezone', 'title', 'content', 'sport', 'started_at', 'stationary', 'subsport',
         'file', 'total_elapsed_time', 'total_timer_time', 'avg_speed', 'max_speed',
         'total_distance', 'avg_cadence', 'max_cadence', 'avg_power', 'max_power',
         'avg_heart_rate', 'max_heart_rate', 'total_calories', 'total_ascent_device',
-        'polyline', 'processed_at',
+        'polyline', 'processed_at', 'tags',
     ];
 
     protected $casts = [
         'started_at' => 'datetime',
         'processed_at' => 'datetime',
+        'tags' => 'array',
     ];
 
     public function activityPoints(): HasMany

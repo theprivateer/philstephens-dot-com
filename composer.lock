@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8497518af50cd5d06e09d4a57eda0d3e",
+    "content-hash": "fa13247db40f3205e670d1b1876b6380",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1722,6 +1722,61 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
+        },
+        {
+            "name": "glhd/linen",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/glhd/linen.git",
+                "reference": "20c1d842ac3bbcdd22d7ab2f53ce6949ef96fe5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/glhd/linen/zipball/20c1d842ac3bbcdd22d7ab2f53ce6949ef96fe5a",
+                "reference": "20c1d842ac3bbcdd22d7ab2f53ce6949ef96fe5a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^10|^11|dev-master",
+                "openspout/openspout": "^4.24"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.34",
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench": "^8|^9|10.x-dev|dev-master",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": []
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Glhd\\Linen\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Morrell",
+                    "homepage": "http://www.cmorrell.com"
+                }
+            ],
+            "keywords": [
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/glhd/linen/issues",
+                "source": "https://github.com/glhd/linen/tree/0.0.2"
+            },
+            "time": "2024-08-02T14:18:30+00:00"
         },
         {
             "name": "graham-campbell/result-type",

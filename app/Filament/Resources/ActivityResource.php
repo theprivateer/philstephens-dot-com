@@ -12,6 +12,7 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Filters\SelectFilter;
@@ -109,14 +110,17 @@ class ActivityResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->maxLength(255)
                     ->columnSpanFull(),
+
+                TagsInput::make('tags'),
+
                 Forms\Components\MarkdownEditor::make('content')
                     ->fileAttachmentsDirectory('images/activities')
                     ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('started_at'),
                 Forms\Components\TextInput::make('timezone')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('sport')
-                    ->maxLength(255),
+                // Forms\Components\TextInput::make('sport')
+                //     ->maxLength(255),
                 Forms\Components\TextInput::make('subsport')
                     ->maxLength(255),
 
