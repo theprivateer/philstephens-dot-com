@@ -21,6 +21,10 @@ class ActivityTitleService
                 $noun = 'Walk';
                 break;
 
+            case 'swimming':
+                $noun = 'Swim';
+                break;
+
             default:
                 $noun = 'Activity';
                 break;

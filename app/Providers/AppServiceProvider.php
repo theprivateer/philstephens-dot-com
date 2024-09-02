@@ -54,6 +54,8 @@ class AppServiceProvider extends ServiceProvider
                     } elseif ($state === Sports::RUNNING) {
                         return 'warning';
                     } elseif ($state === Sports::WALKING) {
+                        return 'danger';
+                    }  elseif ($state === Sports::SWIMMING) {
                         return 'info';
                     }
                     return 'gray';

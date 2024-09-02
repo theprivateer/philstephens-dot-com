@@ -45,6 +45,10 @@ class Activity extends Model
             return Sports::WALKING;
         }
 
+        if ($value == 'swimming') {
+            return Sports::SWIMMING;
+        }
+
         return Sports::ACTIVITY;
     }
 }

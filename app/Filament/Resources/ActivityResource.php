@@ -202,6 +202,7 @@ class ActivityResource extends Resource
                         'cycling' => 'Cycling',
                         'running' => 'Running',
                         'walking' => 'Walking',
+                        'swimming' => 'Swimming',
                     ]),
                 Filter::make('started_at')
                     ->form([

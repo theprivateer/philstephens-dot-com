@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\Sports;
 use Polyline;
 use App\Models\Activity;
 use Glhd\Linen\CsvReader;
@@ -105,7 +106,7 @@ class AnalyseFitFile implements ShouldQueue
             $this->activity->update([
                 'polyline' => $encoded
             ]);
-        } else {
+        } elseif ($this->activity->fresh()->sport != Sports::SWIMMING) {
             $this->activity->update([
                 'stationary' => true,
             ]);
