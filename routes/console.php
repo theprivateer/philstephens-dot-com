@@ -20,7 +20,7 @@ Artisan::command('reprocess-activities', function () {
 });
 
 Artisan::command('fit:sync', function () {
-    $files = Storage::disk('public')->files('activities');
+    $files = Storage::disk('rsync')->files('activities');
 
     collect($files)->each(function ($file) {
         $parts = explode('.', $file);
@@ -31,6 +31,14 @@ Artisan::command('fit:sync', function () {
         }
 
         if (! $exists = Activity::where('file', $file)->first()) {
+            // Copy the file
+            Storage::disk('public')
+                ->writeStream(
+                    $file,
+                    Storage::disk('rsync')
+                        ->readStream($file)
+            );
+
             Activity::create([
                 'file' => $file,
             ]);

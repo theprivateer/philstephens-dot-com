@@ -112,7 +112,7 @@ class AnalyseFitFile implements ShouldQueue
             ]);
         }
 
-        $strava = CsvReader::from(storage_path('app/public/activities/activities.csv'))
+        $strava = CsvReader::from(storage_path('app/rsync/activities/activities.csv'))
                         ->collect()
                         ->keyBy('filename')
                         ->toArray();
