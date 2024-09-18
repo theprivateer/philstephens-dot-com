@@ -6,8 +6,10 @@ use App\Models\Book;
 use App\Models\Activity;
 use App\Enums\PostStatus;
 use App\Enums\Sports;
+use App\Models\Album;
 use App\Observers\BookObserver;
 use App\Observers\ActivityObserver;
+use App\Observers\AlbumObserver;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Activity::observe(ActivityObserver::class);
         Book::observe(BookObserver::class);
+        Album::observe(AlbumObserver::class);
 
         TextColumn::macro('postStatus', function () {
             $this
